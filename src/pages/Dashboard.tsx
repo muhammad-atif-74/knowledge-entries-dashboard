@@ -1,13 +1,38 @@
 import { FaFileExcel, FaPlus, FaPrint } from "react-icons/fa6"
 import { RiEqualizerLine } from "react-icons/ri"
+import type { KnowledgeEntry } from "../types"
+import KnowledgeEntries from "../components/KnowledgeEntries"
+
+export const knowledgeEntries: KnowledgeEntry[] = [
+  {
+    id: "1",
+    title: "Understanding React Hooks",
+    content: "A short guide explaining the basics of useState and useEffect hooks in React for managing state and side effects.",
+    createdAt: new Date("2025-10-15"),
+  },
+  {
+    id: "2",
+    title: "Responsive Design in CSS",
+    content: "Learn how to make websites mobile-friendly using media queries, flexible grids, and relative units.",
+    createdAt: new Date("2025-10-20"),
+  },
+  {
+    id: "3",
+    title: "Working with REST APIs in Node.js",
+    content: "Step-by-step process to create, test, and integrate RESTful APIs using Express and Postman.",
+    createdAt: new Date("2025-10-25"),
+  },
+]
+
 
 const Dashboard = () => {
   return (
-    <section className="px-8">
-      <h1 className="text-2xl font-semibold mb-8">Knowledge Entries</h1>
+    <section className="px-2 md:px-8">
+      <h1 className="text-2xl font-semibold mb-1">Knowledge Entries</h1>
+      <p className="text-gray-600 mb-8">Manage your knowledge base entries here.</p>
 
       {/* Filters and tools  */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 w-full">
         <aside className="flex items-center gap-2">
           <div className="bg-white w-10 h-10 shadow flex items-center justify-center cursor-pointer  group">
             <FaPrint className="text-lg text-gray-600 group-hover:scale-105 group-hover:text-gray-700 transition" />
@@ -31,7 +56,7 @@ const Dashboard = () => {
       </div>
 
       {/* List of knowledge entries  */}
-      
+      <KnowledgeEntries data={knowledgeEntries} />
 
     </section>
   )
