@@ -4,3 +4,7 @@ export const routes = {
     PROFILES: "/profiles",
     SETTINGS: "/settings",
 }
+
+export const api_routes = {
+    ENTRIES: '/entries'
+}

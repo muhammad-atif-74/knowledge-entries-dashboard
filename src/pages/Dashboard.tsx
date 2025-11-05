@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import ConfirmDialog from "../components/ConfirmDialog"
 import { Link, useNavigate } from "react-router-dom"
 import { routes } from "../app-config"
-
+import {fetchAllEntries} from '../api/index'
 export const knowledgeEntries: KnowledgeEntry[] = [
   {
     id: "1",
@@ -31,6 +31,8 @@ export const knowledgeEntries: KnowledgeEntry[] = [
 
 const Dashboard = () => {
   const navigate = useNavigate()
+
+  const [knowledgeEntries, setKnowledgeEntries] = useState<KnowledgeEntry[] | null>([])
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: '',
@@ -38,10 +40,15 @@ const Dashboard = () => {
     onConfirm: () => { }
   });
 
+  useEffect(() => {
+    fetchAllEntries
+  }, [])
+
   const handleDeleteRecord = (id: string) => {
     console.log("Record deleted.", id);
     setConfirmDialog({ ...confirmDialog, isOpen: false });
   }
+  
   const handleDeleteClick = (id: string) => {
     setConfirmDialog({
       isOpen: true,
