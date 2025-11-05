@@ -3,10 +3,12 @@ import type { KnowledgeEntry } from "../types"
 import { useState } from "react"
 
 interface KnowledgeEntriesProps {
-    data: KnowledgeEntry[]
+    data: KnowledgeEntry[],
+    handleDelete: (id: string) => void,
+    handleEdit: (id: string) => void,
 }
 
-const KnowledgeEntries = ({ data }: KnowledgeEntriesProps) => {
+const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesProps) => {
     const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set())
 
     const toggleExpand = (id: number) => {
@@ -73,10 +75,10 @@ const KnowledgeEntries = ({ data }: KnowledgeEntriesProps) => {
                                 <td className="py-4 px-6 text-gray-600 dark:text-gray-200">
                                     <div className="flex items-center gap-4">
                                         <div className="">
-                                            <FiEdit3 className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
+                                            <FiEdit3 onClick={() => handleEdit(entry.id)} className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
                                         </div>
                                         <div className="">
-                                            <FiTrash2 className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
+                                            <FiTrash2 onClick={() => { handleDelete(entry.id) }} className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
                                         </div>
                                     </div>
                                 </td>

@@ -1,10 +1,10 @@
-import type React from "react"
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 import { useUIStore } from "../store/ui-store"
 import clsx from "clsx"
+import { Outlet } from "react-router-dom"
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = () => {
     const { isSidebarCollapsed } = useUIStore()
 
     return (
@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             <Sidebar />
             <section className={clsx("content w-full overflow-hidden", isSidebarCollapsed ? "md:w-[94%]" : "md:w-[83%]")}>
                 <Header />
-                {children}
+                <Outlet />
             </section>
         </main>
     )

@@ -6,7 +6,7 @@ import { PiGear } from "react-icons/pi";
 export const sidebarItems: SidebarItem[] = [
     {
         title: "Dashboard",
-        path: "/dashboard",
+        path: "/",
         icon: MdOutlineDashboardCustomize
     },
     {
