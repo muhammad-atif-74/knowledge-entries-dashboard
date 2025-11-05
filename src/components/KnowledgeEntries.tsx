@@ -21,9 +21,9 @@ const KnowledgeEntries = ({ data }: KnowledgeEntriesProps) => {
 
     return (
         <div className="w-full overflow-x-auto ">
-            <table className="w-full border-collapse bg-white dark:bg-gray-800 rounded-md shadow-lg hidden md:block overflow-auto">
+            <table className="w-full border-collapse bg-white dark:bg-gray-900 rounded-md shadow-lg hidden md:block overflow-auto">
                 <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                         <th className="text-left py-4 px-6 text-sm font-medium text-gray-400 uppercase tracking-wider w-[5%]">
                             ID
                         </th>
