@@ -37,6 +37,8 @@ const AddNewEntry = () => {
     const [existingEntry, setExistingEntry] = useState<KnowledgeEntry | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
+    const [entryLoading, setEntryLoading] = useState(false)
+
     useEffect(() => {
         if (isEditMode && entryId) {
             setIsLoading(true)
@@ -59,6 +61,7 @@ const AddNewEntry = () => {
 
     const handleAddEntry = (entryData: NewKnowledgeEntry) => {
         console.log("Adding new entry:", entryData)
+        setEntryLoading(true)
         addEntry(entryData)
             .then((data) => {
                 console.log("Entry added successfully:", data)
@@ -71,10 +74,14 @@ const AddNewEntry = () => {
                 console.error("Error adding entry:", error)
                 toast.error("Failed to add entry. Please try again.")
             })
+            .finally(() => {
+                setEntryLoading(false)
+            })
     }
 
     const handleUpdateEntry = (entryData: KnowledgeEntry) => {
         console.log("Updating entry:", entryData)
+        setEntryLoading(true)
 
         updateEntry(entryId!, entryData)
             .then(() => {
@@ -87,6 +94,9 @@ const AddNewEntry = () => {
             .catch((error) => {
                 console.error("Error updating entry:", error)
                 toast.error("Failed to update entry. Please try again.")
+            })
+            .finally(() => {
+                setEntryLoading(false)
             })
     }
 
@@ -189,7 +199,8 @@ const AddNewEntry = () => {
                     <div className="flex items-center gap-3">
                         <button
                             type="submit"
-                            className="flex items-center gap-2 px-6 py-2 bg-primary-100 text-white rounded-md hover:bg-primary-200 transition"
+                            className="flex items-center gap-2 px-6 py-2 bg-primary-100 text-white rounded-md hover:bg-primary-200 transition disabled:opacity-50"
+                            disabled={entryLoading}
                         >
                             <FaSave className="text-base" />
                             <span>{isEditMode ? "Update" : "Save"}</span>

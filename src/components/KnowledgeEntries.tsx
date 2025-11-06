@@ -10,16 +10,16 @@ interface KnowledgeEntriesProps {
 }
 
 const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: KnowledgeEntriesProps) => {
-    const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set())
+    const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
 
-    const toggleExpand = (id: number) => {
-        setExpandedIds(prev => {
-            const next = new Set(prev)
-            if (next.has(id)) next.delete(id)
-            else next.add(id)
-            return next
-        })
-    }
+const toggleExpand = (id: string) => {
+    setExpandedIds(prev => {
+        const next = new Set(prev)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        return next
+    })
+}
 
 
     return (
@@ -28,7 +28,7 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                 <thead>
                     <tr className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
                         <th className="text-left py-4 px-6 text-sm font-medium text-gray-400 uppercase tracking-wider w-[5%]">
-                            ID
+                            S.No
                         </th>
                         <th className="text-left py-4 px-6 text-sm font-medium text-gray-400 uppercase tracking-wider w-[25%]">
                             Title
@@ -64,11 +64,11 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                         )
                     }
                     {data.length > 0 && !loading && data
-                        .map((entry) => {
+                        .map((entry, i) => {
                             return (
                                 <tr key={entry.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                                     <td className="py-4 px-6 text-gray-500 font-medium">
-                                        {entry.id}
+                                        {i+1}
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-3">
@@ -76,12 +76,12 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                                         </div>
                                     </td>
                                     <td className="py-4 px-6 text-gray-900 dark:text-gray-200 text-sm">
-                                        {expandedIds.has(parseInt(entry.id)) || entry.content.length <= 80
+                                        {expandedIds.has(entry.id) || entry.content.length <= 80
                                             ? entry.content
                                             : `${entry.content.slice(0, 80)}...`}
                                         {entry.content.length > 80 && (
-                                            <button onClick={() => toggleExpand(parseInt(entry.id))} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
-                                                {expandedIds.has(parseInt(entry.id)) ? 'Read less' : 'Read more'}
+                                            <button onClick={() => toggleExpand(entry.id)} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
+                                                {expandedIds.has(entry.id) ? 'Read less' : 'Read more'}
                                             </button>
                                         )}
                                     </td>
@@ -116,12 +116,12 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                             <div className="list-item shadow-sm px-5 py-3 rounded-md bg-white dark:bg-gray-800 mb-2 border border-gray-100 dark:border-gray-900" key={entry.id}>
                                 <h5 className="text-base font-medium mb-2">{entry.title}</h5>
                                 <p className="text-gray-600 dark:text-gray-200 text-sm mb-3">
-                                    {expandedIds.has(parseInt(entry.id)) || entry.content.length <= 80
+                                    {expandedIds.has(entry.id) || entry.content.length <= 80
                                         ? entry.content
                                         : `${entry.content.slice(0, 80)}...`}
                                     {entry.content.length > 80 && (
-                                        <button onClick={() => toggleExpand(parseInt(entry.id))} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
-                                            {expandedIds.has(parseInt(entry.id)) ? 'Read less' : 'Read more'}
+                                        <button onClick={() => toggleExpand(entry.id)} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
+                                            {expandedIds.has(entry.id) ? 'Read less' : 'Read more'}
                                         </button>
                                     )}
                                 </p>
