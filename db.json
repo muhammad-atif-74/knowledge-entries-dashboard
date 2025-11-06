@@ -1,47 +1,46 @@
 {
   "entries": [
-  {
-    "id": "f248",
-    "title": "Responsive Design in CSS",
-    "content": "Learn how to make websites mobile-friendly using media queries, flexible grids, and relative units.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "50d8",
-    "title": "Working with REST APIs in Node.js",
-    "content": "Step-by-step process to create, test, and integrate RESTful APIs using Express and Postman.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "c391",
-    "title": "State Management with Zustand",
-    "content": "Understand how to manage global state in React using Zustand with a clean and minimal setup.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "e927",
-    "title": "Form Validation with Formik and Yup",
-    "content": "Simplify your form handling in React apps by combining Formik’s powerful form tools with Yup validation schemas.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "b602",
-    "title": "Building a JSON Server for Mock APIs",
-    "content": "Set up a quick and local JSON Server to simulate API endpoints for testing and development.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "9a75",
-    "title": "Type Safety in React with TypeScript",
-    "content": "Enhance your React projects with TypeScript to catch errors early and write more predictable code.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  },
-  {
-    "id": "6d42",
-    "title": "Styling with Tailwind CSS",
-    "content": "Speed up your frontend workflow using Tailwind CSS utilities to design responsive and modern UIs effortlessly.",
-    "createdAt": "2025-11-06T00:00:00.000Z"
-  }
-]
-
+    {
+      "id": "f248",
+      "title": "Responsive Design in CSS",
+      "content": "Learn how to make websites mobile-friendly using media queries, flexible grids, and relative units.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "50d8",
+      "title": "Working with REST APIs in Node.js",
+      "content": "Step-by-step process to create, test, and integrate RESTful APIs using Express and Postman.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "c391",
+      "title": "State Management with Zustand",
+      "content": "Understand how to manage global state in React using Zustand with a clean and minimal setup.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "e927",
+      "title": "Form Validation with Formik and Yup",
+      "content": "Simplify your form handling in React apps by combining Formik’s powerful form tools with Yup validation schemas.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "b602",
+      "title": "Building a JSON Server for Mock APIs",
+      "content": "Set up a quick and local JSON Server to simulate API endpoints for testing and development.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "9a75",
+      "title": "Type Safety in React with TypeScript",
+      "content": "Enhance your React projects with TypeScript to catch errors early and write more predictable code.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "3657",
+      "title": "Test Knowledge Entry",
+      "content": "This is a simple test description for the new knowledge entry.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    }
+  ]
 }

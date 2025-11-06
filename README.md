@@ -21,7 +21,7 @@ You can **add, edit, and delete** entries from a clean dashboard. The data is st
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/knowledge-management-app.git
+git clone https://github.com/muhammad-atif-74/knowledge-management-app.git
 cd knowledge-management-app
 ```
 
@@ -41,7 +41,7 @@ Then start it:
 json-server --watch db.json --port 5000
 ```
 
-Your mock API will now run at:
+The mock API will now run at:
 ```
 http://localhost:5000
 ```
