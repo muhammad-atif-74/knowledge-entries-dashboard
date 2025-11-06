@@ -6,33 +6,15 @@ import { useEffect, useState } from "react"
 import ConfirmDialog from "../components/ConfirmDialog"
 import { Link, useNavigate } from "react-router-dom"
 import { routes } from "../app-config"
-import {fetchAllEntries} from '../api/index'
-export const knowledgeEntries: KnowledgeEntry[] = [
-  {
-    id: "1",
-    title: "Understanding React Hooks",
-    content: "A short guide explaining the basics of useState and useEffect hooks in React for managing state and side effects.",
-    createdAt: new Date("2025-10-15"),
-  },
-  {
-    id: "2",
-    title: "Responsive Design in CSS",
-    content: "Learn how to make websites mobile-friendly using media queries, flexible grids, and relative units.",
-    createdAt: new Date("2025-10-20"),
-  },
-  {
-    id: "3",
-    title: "Working with REST APIs in Node.js",
-    content: "Step-by-step process to create, test, and integrate RESTful APIs using Express and Postman.",
-    createdAt: new Date("2025-10-25"),
-  },
-]
+import { deleteEntry, fetchAllEntries } from '../api/index'
+import { toast } from "sonner"
 
 
 const Dashboard = () => {
   const navigate = useNavigate()
 
   const [knowledgeEntries, setKnowledgeEntries] = useState<KnowledgeEntry[] | null>([])
+  const [loadingKnowledgeEntries, setLoadingKnowledgeEntries] = useState<boolean>(true)
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: '',
@@ -41,14 +23,36 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetchAllEntries
+    fetchAllEntries()
+      .then((data) => {
+        console.log("Fetched knowledge entries:", data);
+        setKnowledgeEntries(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching knowledge entries:", error);
+      })
+      .finally(() => {
+        setLoadingKnowledgeEntries(false);
+      });
   }, [])
 
   const handleDeleteRecord = (id: string) => {
     console.log("Record deleted.", id);
+
+    deleteEntry(id)
+      .then((data) => {
+        console.log("Entry deleted successfully:", data);
+        toast.success("Entry deleted successfully!");
+        setKnowledgeEntries(prevEntries => prevEntries ? prevEntries.filter(entry => entry.id !== id) : null);
+      })
+      .catch((error) => {
+        toast.error("Failed to delete entry. Please try again.");
+        console.error("Error deleting entry:", error);
+      });
+
     setConfirmDialog({ ...confirmDialog, isOpen: false });
   }
-  
+
   const handleDeleteClick = (id: string) => {
     setConfirmDialog({
       isOpen: true,
@@ -81,7 +85,7 @@ const Dashboard = () => {
           </aside>
           <aside>
             <div className="flex items-center gap-3">
-              <h5 className="font-semibold text-sm md:text-base">{knowledgeEntries.length} Records</h5>
+              <h5 className="font-semibold text-sm md:text-base">{knowledgeEntries?.length} Records</h5>
               <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer  group">
                 <RiEqualizerLine className="text-lg text-gray-600 dark:text-gray-50 dark:group-hover:text-white group-hover:scale-105 group-hover:text-gray-700 transition" />
               </div>
@@ -94,9 +98,10 @@ const Dashboard = () => {
 
         {/* List of knowledge entries  */}
         <KnowledgeEntries
-          data={knowledgeEntries}
+          data={knowledgeEntries!}
           handleDelete={handleDeleteClick}
           handleEdit={handleEditClick}
+          loading={loadingKnowledgeEntries}
         />
 
       </section>

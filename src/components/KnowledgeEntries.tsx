@@ -3,12 +3,13 @@ import type { KnowledgeEntry } from "../types"
 import { useState } from "react"
 
 interface KnowledgeEntriesProps {
-    data: KnowledgeEntry[],
+    data: KnowledgeEntry[] | [],
+    loading: boolean,
     handleDelete: (id: string) => void,
     handleEdit: (id: string) => void,
 }
 
-const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesProps) => {
+const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: KnowledgeEntriesProps) => {
     const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set())
 
     const toggleExpand = (id: number) => {
@@ -22,10 +23,10 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesPr
 
 
     return (
-        <div className="w-full overflow-x-auto ">
-            <table className="w-full border-collapse bg-white dark:bg-gray-900 rounded-md shadow-lg hidden md:block overflow-auto">
+        <div className="w-full ">
+            <table className="w-full border-collapse bg-white dark:bg-gray-900 rounded-md mb-6 shadow-lg hidden md:block overflow-auto">
                 <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                    <tr className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
                         <th className="text-left py-4 px-6 text-sm font-medium text-gray-400 uppercase tracking-wider w-[5%]">
                             ID
                         </th>
@@ -44,47 +45,66 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesPr
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((entry) => {
-                        return (
-                            <tr key={entry.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                <td className="py-4 px-6 text-gray-500 font-medium">
-                                    {entry.id}
-                                </td>
-                                <td className="py-4 px-6">
-                                    <div className="flex items-center gap-3">
-                                        <span className=" text-gray-900 dark:text-gray-200 text-sm">{entry.title}</span>
-                                    </div>
-                                </td>
-                                <td className="py-4 px-6 text-gray-900 dark:text-gray-200 text-sm">
-                                    {expandedIds.has(parseInt(entry.id)) || entry.content.length <= 80
-                                        ? entry.content
-                                        : `${entry.content.slice(0, 80)}...`}
-                                    {entry.content.length > 80 && (
-                                        <button onClick={() => toggleExpand(parseInt(entry.id))} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
-                                            {expandedIds.has(parseInt(entry.id)) ? 'Read less' : 'Read more'}
-                                        </button>
-                                    )}
-                                </td>
-                                <td className="py-4 px-6 text-gray-600 dark:text-gray-200 text-sm">
-                                    {entry.createdAt ? new Date(entry.createdAt).toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                        year: 'numeric'
-                                    }) : 'N/A'}
-                                </td>
-                                <td className="py-4 px-6 text-gray-600 dark:text-gray-200">
-                                    <div className="flex items-center gap-4">
-                                        <div className="">
-                                            <FiEdit3 onClick={() => handleEdit(entry.id)} className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
-                                        </div>
-                                        <div className="">
-                                            <FiTrash2 onClick={() => { handleDelete(entry.id) }} className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
-                                        </div>
-                                    </div>
+                    {
+                        loading && (
+                            <tr>
+                                <td colSpan={5} className="py-4 px-6 text-center text-gray-500">
+                                    Loading...
                                 </td>
                             </tr>
                         )
-                    })}
+                    }
+                    {
+                        data.length === 0 && !loading && (
+                            <tr>
+                                <td colSpan={5} className="py-4 px-6 text-center text-gray-500">
+                                    No records found.
+                                </td>
+                            </tr>
+                        )
+                    }
+                    {data.length > 0 && !loading && data
+                        .map((entry) => {
+                            return (
+                                <tr key={entry.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <td className="py-4 px-6 text-gray-500 font-medium">
+                                        {entry.id}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <div className="flex items-center gap-3">
+                                            <span className=" text-gray-900 dark:text-gray-200 text-sm">{entry.title}</span>
+                                        </div>
+                                    </td>
+                                    <td className="py-4 px-6 text-gray-900 dark:text-gray-200 text-sm">
+                                        {expandedIds.has(parseInt(entry.id)) || entry.content.length <= 80
+                                            ? entry.content
+                                            : `${entry.content.slice(0, 80)}...`}
+                                        {entry.content.length > 80 && (
+                                            <button onClick={() => toggleExpand(parseInt(entry.id))} className="ml-2 text-blue-600 hover:text-blue-800 text-sm">
+                                                {expandedIds.has(parseInt(entry.id)) ? 'Read less' : 'Read more'}
+                                            </button>
+                                        )}
+                                    </td>
+                                    <td className="py-4 px-6 text-gray-600 dark:text-gray-200 text-sm">
+                                        {entry.createdAt ? new Date(entry.createdAt).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        }) : 'N/A'}
+                                    </td>
+                                    <td className="py-4 px-6 text-gray-600 dark:text-gray-200">
+                                        <div className="flex items-center gap-4">
+                                            <div className="">
+                                                <FiEdit3 onClick={() => handleEdit(entry.id)} className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
+                                            </div>
+                                            <div className="">
+                                                <FiTrash2 onClick={() => { handleDelete(entry.id) }} className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                 </tbody>
             </table>
 
@@ -107,10 +127,10 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesPr
                                 </p>
                                 <div className="action flex items-center gap-4" >
                                     <div className="">
-                                        <FiEdit3 className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
+                                        <FiEdit3 onClick={() => handleEdit(entry.id)} className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
                                     </div>
                                     <div className="">
-                                        <FiTrash2 className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
+                                        <FiTrash2 onClick={() => handleDelete(entry.id)} className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +139,7 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit }: KnowledgeEntriesPr
                 }
             </div>
 
-            <div className="flex flex-col md:flex-row gap-2 items-center justify-between my-4 p-3 md:p-4 bg-white dark:bg-gray-900 rounded-md shadow-sm md:shadow-lg">
+            <div className="hidden flex flex-col md:flex-row gap-2 items-center justify-between my-4 p-3 md:p-4 bg-white dark:bg-gray-900 rounded-md shadow-sm md:shadow-lg">
                 <div className="hidden md:block text-sm text-gray-600 dark:text-gray-100">
                     Showing <span className="font-medium text-gray-900 dark:text-gray-50">1-10</span> of <span className="font-medium text-gray-900 dark:text-gray-50">97</span> results
                 </div>

@@ -6,11 +6,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import AddNewEntry from './pages/AddNewEntry'
+import { Toaster } from 'sonner';
 
 function App() {
 
   return (
     <>
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route element={<DashboardLayout />}>

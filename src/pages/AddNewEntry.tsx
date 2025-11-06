@@ -4,7 +4,10 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import { FaSave } from "react-icons/fa"
 import { MdCancel } from "react-icons/md"
 import { routes } from "../app-config"
-import { knowledgeEntries } from "./Dashboard"
+import type { KnowledgeEntry, NewKnowledgeEntry } from "../types"
+import { addEntry, fetchEntryById, updateEntry } from "../api"
+import { toast } from "sonner"
+import { useEffect, useState } from "react"
 
 const validationSchema = Yup.object({
     title: Yup.string()
@@ -20,30 +23,111 @@ const validationSchema = Yup.object({
         .max(new Date(), "Date cannot be in the future"),
 })
 
+interface FormValues {
+    title: string
+    content: string
+    createdAt: string
+}
+
 const AddNewEntry = () => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const entryId = searchParams.get("id")
     const isEditMode = Boolean(entryId)
 
-    const existingEntry = isEditMode
-        ? knowledgeEntries.find(entry => entry.id === entryId)
-        : null
+    const [existingEntry, setExistingEntry] = useState<KnowledgeEntry | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const formik = useFormik({
+    useEffect(() => {
+        if (isEditMode && entryId) {
+            setIsLoading(true)
+            fetchEntryById(entryId)
+                .then((data) => {
+                    console.log("Fetched entry for editing:", data)
+                    setExistingEntry(data)
+                })
+                .catch((error) => {
+                    console.error("Error fetching entry:", error)
+                    toast.error("Failed to load entry data.")
+                    navigate(routes.DASHBOARD)
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
+        }
+    }, [entryId, isEditMode, navigate])
+
+
+    const handleAddEntry = (entryData: NewKnowledgeEntry) => {
+        console.log("Adding new entry:", entryData)
+        addEntry(entryData)
+            .then((data) => {
+                console.log("Entry added successfully:", data)
+                toast.success("Entry added successfully!")
+                setTimeout(() => {
+                    navigate(routes.DASHBOARD)
+                }, 500);
+            })
+            .catch((error) => {
+                console.error("Error adding entry:", error)
+                toast.error("Failed to add entry. Please try again.")
+            })
+    }
+
+    const handleUpdateEntry = (entryData: KnowledgeEntry) => {
+        console.log("Updating entry:", entryData)
+
+        updateEntry(entryId!, entryData)
+            .then((data) => {
+                toast.success("Entry updated successfully!")
+                setTimeout(() => {
+                    navigate(routes.DASHBOARD)
+                }, 500);
+                navigate(routes.DASHBOARD)
+            })
+            .catch((error) => {
+                console.error("Error updating entry:", error)
+                toast.error("Failed to update entry. Please try again.")
+            })
+    }
+
+    const formik = useFormik<FormValues>({
         initialValues: {
             title: existingEntry?.title || "",
             content: existingEntry?.content || "",
             createdAt: existingEntry?.createdAt
-                ? new Date(existingEntry.createdAt).toISOString().split('T')[0]
-                : new Date().toISOString().split('T')[0],
+                ? new Date(existingEntry.createdAt).toISOString().split("T")[0]
+                : new Date().toISOString().split("T")[0],
         },
+        enableReinitialize: true, // This is crucial - it updates the form when existingEntry loads
         validationSchema,
         onSubmit: (values) => {
-            console.log(isEditMode ? "Updating entry:" : "Creating entry:", values)
-            navigate(routes.DASHBOARD)
+            if (isEditMode) {
+                const entryData: KnowledgeEntry = {
+                    id: entryId!,
+                    title: values.title,
+                    content: values.content,
+                    createdAt: new Date(values.createdAt),
+                }
+                handleUpdateEntry(entryData)
+            } else {
+                const entryData: NewKnowledgeEntry = {
+                    title: values.title,
+                    content: values.content,
+                    createdAt: new Date(values.createdAt),
+                }
+                handleAddEntry(entryData)
+            }
         },
     })
+
+    if (isLoading) {
+        return (
+            <section className="px-2 md:px-8">
+                <div className="text-center py-8">Loading...</div>
+            </section>
+        )
+    }
 
     return (
         <section className="px-2 md:px-8">

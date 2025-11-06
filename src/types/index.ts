@@ -19,5 +19,7 @@ export interface KnowledgeEntry {
     id: string
     title: string
     content: string
-    createdAt?: Date
+    createdAt?: Date | string
 }
+
+export type NewKnowledgeEntry = Omit<KnowledgeEntry, "id">
