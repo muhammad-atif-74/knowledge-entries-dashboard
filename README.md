@@ -5,7 +5,7 @@ You can **add, edit, and delete** entries from a clean dashboard. The data is st
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 - **React + TypeScript + Vite** – frontend setup  
 - **Zustand** – for state management  
@@ -17,7 +17,7 @@ You can **add, edit, and delete** entries from a clean dashboard. The data is st
 
 ---
 
-## ⚙️ How to Run the Project
+## Setup | How to Run the Project
 
 ### 1. Clone the repository
 ```bash
@@ -58,7 +58,7 @@ http://localhost:5173
 
 ---
 
-## 🚀 Usage
+## Usage
 
 The app opens with a simple **dashboard** showing all entries in a table or list view.  
 Each entry has **Edit** and **Delete** buttons.
@@ -72,9 +72,15 @@ Each entry has **Edit** and **Delete** buttons.
 
 ---
 
-## 🧪 Run Tests (Playwright)
+## Run Tests (Playwright)
 
-To run all end-to-end tests:
+Two main end-to-end tests are written using Playwright:
+
+Add New Entry Test – Opens the “Add New” page, fills the form, submits it, and verifies that the new entry appears on the dashboard.
+
+Delete Entry Test – Opens the dashboard, selects the last entry, confirms the delete dialog, and verifies that it was removed successfully.
+
+To run all Playwright tests:
 ```bash
 npm run test:e2e
 ```
