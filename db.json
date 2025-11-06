@@ -1,12 +1,6 @@
 {
   "entries": [
     {
-      "id": "a566",
-      "title": "Understanding React Hooks",
-      "content": "A short guide explaining the basics of useState and useEffect hooks in React for managing state and side effects.",
-      "createdAt": "2025-11-06T00:00:00.000Z"
-    },
-    {
       "id": "f248",
       "title": "Responsive Design in CSS",
       "content": "Learn how to make websites mobile-friendly using media queries, flexible grids, and relative units",
@@ -16,6 +10,18 @@
       "id": "50d8",
       "title": "Working with REST APIs in Node.js",
       "content": "Step-by-step process to create, test, and integrate RESTful APIs using Express and Postman.",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "12b4",
+      "title": "This is test entry",
+      "content": "This is test entry",
+      "createdAt": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "id": "5fe3",
+      "title": "Test Knowledge Entry",
+      "content": "This is a simple test description for the new knowledge entry.",
       "createdAt": "2025-11-06T00:00:00.000Z"
     }
   ]

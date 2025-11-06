@@ -2,7 +2,6 @@ import { useFormik } from "formik"
 import * as Yup from "yup"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { FaSave } from "react-icons/fa"
-import { MdCancel } from "react-icons/md"
 import { routes } from "../app-config"
 import type { KnowledgeEntry, NewKnowledgeEntry } from "../types"
 import { addEntry, fetchEntryById, updateEntry } from "../api"
@@ -78,7 +77,7 @@ const AddNewEntry = () => {
         console.log("Updating entry:", entryData)
 
         updateEntry(entryId!, entryData)
-            .then((data) => {
+            .then(() => {
                 toast.success("Entry updated successfully!")
                 setTimeout(() => {
                     navigate(routes.DASHBOARD)

@@ -98,7 +98,7 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                                                 <FiEdit3 onClick={() => handleEdit(entry.id)} className="text-lg cursor-pointer text-blue-600/70 hover:text-blue-800 transition" />
                                             </div>
                                             <div className="">
-                                                <FiTrash2 onClick={() => { handleDelete(entry.id) }} className="text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
+                                                <FiTrash2 onClick={() => { handleDelete(entry.id) }} className="FiTrash2 text-lg cursor-pointer text-red-600/70 hover:text-red-800 transition" />
                                             </div>
                                         </div>
                                     </td>
@@ -139,7 +139,7 @@ const KnowledgeEntries = ({ data, handleDelete, handleEdit, loading }: Knowledge
                 }
             </div>
 
-            <div className="hidden flex flex-col md:flex-row gap-2 items-center justify-between my-4 p-3 md:p-4 bg-white dark:bg-gray-900 rounded-md shadow-sm md:shadow-lg">
+            <div className="hidden flex-col md:flex-row gap-2 items-center justify-between my-4 p-3 md:p-4 bg-white dark:bg-gray-900 rounded-md shadow-sm md:shadow-lg">
                 <div className="hidden md:block text-sm text-gray-600 dark:text-gray-100">
                     Showing <span className="font-medium text-gray-900 dark:text-gray-50">1-10</span> of <span className="font-medium text-gray-900 dark:text-gray-50">97</span> results
                 </div>

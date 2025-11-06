@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# Knowledge Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small React + TypeScript project that helps you manage knowledge entries.  
+You can **add, edit, and delete** entries easily. The data is stored locally using a **JSON Server**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧰 Tech Stack
 
-## React Compiler
+- React + TypeScript + Vite  
+- Zustand – state management  
+- Formik + Yup – forms and validation  
+- Tailwind CSS – styling  
+- Axios – API calls  
+- Playwright – end-to-end testing  
+- JSON Server – mock backend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ How to Run the Project
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/knowledge-management-app.git
+cd knowledge-management-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install packages
+```bash
+npm install
 ```
+
+### 3. Start the backend (JSON Server)
+If you don’t have JSON Server installed, run:
+```bash
+npm install -g json-server
+```
+
+Then start it:
+```bash
+json-server --watch db.json --port 5000
+```
+
+Your mock API will now be running at:
+```
+http://localhost:5000
+```
+
+### 4. Start the app
+```bash
+npm run dev
+```
+
+Now open your browser and visit:
+```
+http://localhost:5173
+```
+
+---
+
+## 🧪 Run Tests (Playwright)
+
+To run all end-to-end tests:
+```bash
+npm run test:e2e
+```
+
+To open Playwright with UI mode:
+```bash
+npm run test:e2e:ui
+```
+
+To open the last test report:
+```bash
+npm run test:e2e:report
+```
+
+---
+
+## 💡 UI / UX Improvement Ideas
+
+**Read More for Long Descriptions**  
+Long text is shortened with a “Read more” option so the layout stays clean and easy to read.
+
+**Better Mobile View**  
+On smaller screens, entries appear as cards instead of a table to make scrolling and reading easier.
+
+---
+
+## 🎥 Demo Video
+
+You can watch a short demo video (under 5 minutes) here:  
+👉 [Demo Video Link](#)
+
+---
+
+## 👤 Author
+
+Developed by **Muhammad Atif**  
+GitHub: [https://github.com/muhammad-atif-74](https://github.com/muhammad-atif-74)
